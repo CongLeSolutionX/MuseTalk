@@ -1,19 +1,24 @@
 import argparse
-import os
-from omegaconf import OmegaConf
-import numpy as np
-import cv2
-import torch
-import glob
-import pickle
-from tqdm import tqdm
 import copy
-
-from musetalk.utils.utils import get_file_type,get_video_fps,datagen
-from musetalk.utils.preprocessing import get_landmark_and_bbox,read_imgs,coord_placeholder
-from musetalk.utils.blending import get_image
-from musetalk.utils.utils import load_all_model
+import glob
+import os
+import pickle
 import shutil
+
+import cv2
+import numpy as np
+import torch
+from omegaconf import OmegaConf
+from tqdm import tqdm
+
+from musetalk.utils.blending import get_image
+from musetalk.utils.preprocessing import (coord_placeholder,
+                                          get_landmark_and_bbox, read_imgs)
+from musetalk.utils.utils import (datagen, get_file_type, get_video_fps,
+                                  load_all_model)
+
+# Debug: Print the current working directory
+print("Current Working Directory:", os.getcwd())
 
 # load model weights
 audio_processor, vae, unet, pe = load_all_model()
@@ -64,7 +69,7 @@ def main(args):
         else:
             raise ValueError(f"{video_path} should be a video file, an image file or a directory of images")
 
-        #print(input_img_list)
+        print(input_img_list)
         ############################################## extract audio feature ##############################################
         whisper_feature = audio_processor.audio2feat(audio_path)
         whisper_chunks = audio_processor.feature2chunks(feature_array=whisper_feature,fps=fps)
