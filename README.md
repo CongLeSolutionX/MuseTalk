@@ -208,7 +208,9 @@ export FFMPEG_PATH=/path/to/ffmpeg
 ```
 for example:
 ```
-export FFMPEG_PATH=/musetalk/ffmpeg-4.4-amd64-static
+export FFMPEG_PATH=/musetalk/ffmpeg-4.4-amd64-static # For Linux machines.
+# or
+export FFMPEG_PATH=/musetalk/ffmpeg-7.0-arm64-static # For MacOS with M chips.
 ```
 ### Download weights
 You can download weights manually as follows:
