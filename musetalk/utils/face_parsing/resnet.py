@@ -80,6 +80,7 @@ class Resnet18(nn.Module):
         return feat8, feat16, feat32
 
     def init_weight(self, model_path):
+        print("model_path is : {}".format(model_path))
         state_dict = torch.load(model_path) #modelzoo.load_url(resnet18_url)
         self_state_dict = self.state_dict()
         for k, v in state_dict.items():
@@ -100,7 +101,7 @@ class Resnet18(nn.Module):
 
 
 if __name__ == "__main__":
-    net = Resnet18()
+    net = Resnet18('path/to/your/model/weights')
     x = torch.randn(16, 3, 224, 224)
     out = net(x)
     print(out[0].size())
