@@ -6,7 +6,7 @@ import torch
 
 ffmpeg_path = os.getenv('FFMPEG_PATH')
 if ffmpeg_path is None:
-    print("please download ffmpeg-static and export to FFMPEG_PATH. \nFor example: export FFMPEG_PATH=/musetalk/ffmpeg-4.4-amd64-static")
+    print("please download ffmpeg-static and export to FFMPEG_PATH. \nFor example: export FFMPEG_PATH=/musetalk/ffmpeg-6.0-arm64-static")
 elif ffmpeg_path not in os.getenv('PATH'):
     print("add ffmpeg to path")
     os.environ["PATH"] = f"{ffmpeg_path}:{os.environ['PATH']}"
