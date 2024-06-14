@@ -1,11 +1,14 @@
-import torch
-import time
 import os
+import time
+
 import cv2
 import numpy as np
-from PIL import Image
-from .model import BiSeNet
+import torch
 import torchvision.transforms as transforms
+from PIL import Image
+
+from .model import BiSeNet
+
 
 class FaceParsing():
     def __init__(self):
@@ -13,8 +16,21 @@ class FaceParsing():
         self.preprocess = self.image_preprocess()
 
     def model_init(self, 
-                   resnet_path='./models/face-parse-bisent/resnet18-5c106cde.pth', 
-                   model_pth='./models/face-parse-bisent/79999_iter.pth'):
+                   resnet_path='./musetalk/models/face-parse-bisent/resnet18-5c106cde.pth',
+                   model_pth='./musetalk/models/face-parse-bisent/79999_iter.pth'):
+        # Debug: Print the absolute paths
+        absolute_resnet_path = os.path.abspath(resnet_path)
+        absolute_model_pth = os.path.abspath(model_pth)
+        print("Absolute Resnet Path:", absolute_resnet_path)
+        print("Absolute Model Path:", absolute_model_pth)
+        
+        # Ensure that the files exist
+        if not os.path.exists(absolute_resnet_path):
+            raise FileNotFoundError(f'{absolute_resnet_path} cannot be found.')
+        if not os.path.exists(absolute_model_pth):
+            raise FileNotFoundError(f'{absolute_model_pth} cannot be found.')
+        
+        # Initialize the BiSeNet
         net = BiSeNet(resnet_path)
         if torch.cuda.is_available():
             net.cuda()
