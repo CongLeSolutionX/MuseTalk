@@ -1,21 +1,22 @@
-import sys
-from face_detection import FaceAlignment,LandmarksType
-from os import listdir, path
-import subprocess
-import numpy as np
-import cv2
-import pickle
-import os
 import json
+import os
+import pickle
+import subprocess
+import sys
+from os import listdir, path
+
+import cv2
+import numpy as np
+import torch
+from face_detection import FaceAlignment, LandmarksType
 from mmpose.apis import inference_topdown, init_model
 from mmpose.structures import merge_data_samples
-import torch
 from tqdm import tqdm
 
 # initialize the mmpose model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 config_file = './musetalk/utils/dwpose/rtmpose-l_8xb32-270e_coco-ubody-wholebody-384x288.py'
-checkpoint_file = './models/dwpose/dw-ll_ucoco_384.pth'
+checkpoint_file = './musetalk/models/dwpose/dw-ll_ucoco_384.pth'
 model = init_model(config_file, checkpoint_file, device=device)
 
 # initialize the face detection model

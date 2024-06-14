@@ -1,15 +1,18 @@
 import os
-from .whisper import load_model
-import soundfile as sf
-import numpy as np
-import time
 import sys
+import time
+
+import numpy as np
+import soundfile as sf
+
+from .whisper import load_model
+
 sys.path.append("..")
 
 class Audio2Feature():
     def __init__(self, 
                  whisper_model_type="tiny",
-                 model_path="./models/whisper/tiny.pt"):
+                 model_path="./musetalk/models/whisper/tiny.pt"):
         self.whisper_model_type = whisper_model_type
         self.model = load_model(model_path) #
 

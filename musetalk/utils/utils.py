@@ -1,4 +1,5 @@
 import os
+
 import cv2
 import numpy as np
 import torch
@@ -11,15 +12,16 @@ elif ffmpeg_path not in os.getenv('PATH'):
     os.environ["PATH"] = f"{ffmpeg_path}:{os.environ['PATH']}"
 
     
-from musetalk.whisper.audio2feature import Audio2Feature
+from musetalk.models.unet import PositionalEncoding, UNet
 from musetalk.models.vae import VAE
-from musetalk.models.unet import UNet,PositionalEncoding
+from musetalk.whisper.audio2feature import Audio2Feature
+
 
 def load_all_model():
-    audio_processor = Audio2Feature(model_path="./models/whisper/tiny.pt")
-    vae = VAE(model_path = "./models/sd-vae-ft-mse/")
-    unet = UNet(unet_config="./models/musetalk/musetalk.json",
-                model_path ="./models/musetalk/pytorch_model.bin")
+    audio_processor = Audio2Feature(model_path="./musetalk/models/whisper/tiny.pt")
+    vae = VAE(model_path = "./musetalk/models/sd-vae-ft-mse/")
+    unet = UNet(unet_config="./musetalk/models/musetalk/musetalk.json",
+                model_path ="./musetalk/models/musetalk/pytorch_model.bin")
     pe = PositionalEncoding(d_model=384)
     return audio_processor,vae,unet,pe
 
